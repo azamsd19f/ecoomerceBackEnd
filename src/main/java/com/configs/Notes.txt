@@ -1,0 +1,5 @@
+User:
+userId , name , email, password, creationDate , 
+------------------------------------
+http://localhost:8082/swagger-ui/index.html
+---------------------------------------------
