@@ -37,6 +37,7 @@ public class Payments {
 	@CreatedDate
 	private LocalDateTime createdAt;
 	private String paymentId;
+	private LocalDateTime transactionDate;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

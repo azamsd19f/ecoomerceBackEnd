@@ -1,12 +1,17 @@
 server:
   port: 8082
 
+
 spring:
+  mvc:
+    pathmatch:
+       matching-strategy: ANT_PATH_MATCHER
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecom?createDatabaseIfNotExist=true
     username: root
     password: Azam@1234
+  
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,4 +23,4 @@ spring:
 path:
   image: myFiles/
   devServe: http://localhost:8082/
-  prodServe: http://31.156.76.8:8082/
+  prodServe: http://31.187.75.117:8082/

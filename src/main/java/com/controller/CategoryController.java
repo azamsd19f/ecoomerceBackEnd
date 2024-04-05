@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +19,11 @@ import com.entity.Category;
 import com.exception.InputValidationEx;
 import com.service.CategoryService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/category/")
+@Slf4j
 public class CategoryController {
 
 	@Autowired
@@ -34,6 +40,8 @@ public class CategoryController {
 	}
 	@GetMapping("{categoryId}")
 	public ResponseEntity<CategoryDto> getByCategoryId(@PathVariable Integer categoryId){
+	
 		return ResponseEntity.status(HttpStatus.OK).body(service.getCategoryById(categoryId));
+		
 	}
 }

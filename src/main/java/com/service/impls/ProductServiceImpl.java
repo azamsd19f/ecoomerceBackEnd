@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.dto.ProductDto;
 import com.dto.ProductImageDto;
 import com.entity.Category;
 import com.entity.Product;
+import com.entity.ProductImage;
 import com.exception.ResourceNotFound;
 import com.repository.CategoryRepository;
 import com.repository.ProductRepository;
@@ -23,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class ProductServiceImpl implements ProductService {
+	
+	@Value("${path.devServe}")
+	private String devLink;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -77,14 +82,27 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDto> getAllProduct() {
 		List<Product> list = productRepository.findAll();
+		StringBuilder builders = new StringBuilder();
+		builders.append(devLink).append("file/");
 //		List<ProductDto> listDto = Arrays.asList(mapper.map(list, ProductDto[].class));
 		
 		List<ProductDto> productDtoList = list.stream()
 	            .map(product -> {
 	                ProductDto productDto = mapper.map(product, ProductDto.class);
 	                // Mapping product image to ProductImageDto
-	                ProductImageDto imageDto = mapper.map(product.getProductImage(), ProductImageDto.class);
-	                productDto.setImageDto(imageDto);
+	                ProductImage productImage = product.getProductImage();
+	                if (productImage != null) {
+	                	
+	                    ProductImageDto imageDto = mapper.map(productImage, ProductImageDto.class);
+	                    builders.append(imageDto.getImageName());
+	        			String imageLink = builders.toString();
+	        			log.info("image link {}", imageLink);
+	                    productDto.setImageDto(imageDto);
+	                    imageDto.setLink(imageLink);
+	                } else {
+	                    // Handle the case where imageDto in ProductImage is null
+	                    productDto.setImageDto(null); // You can set it to null or handle it as per your requirements
+	                }
 	                return productDto;
 	            })
 	            .collect(Collectors.toList());

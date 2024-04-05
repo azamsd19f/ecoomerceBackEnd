@@ -20,5 +20,6 @@ public class PaymentDto {
 	private Double amountDue;
 	private String paymentId;
 	private Integer attempt;
+	private LocalDateTime transactionDate;
 
 }

@@ -25,11 +25,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
 		termsOfService = "Terms of service"),
 		servers = {@Server(
 			description	="DEV ENV",
-			url="http://localhost:8081"
+			url="http://localhost:8082"
 			),
 				@Server(
 						description	="QA ENV",
-						url="http://3.108.26.182:8081"
+						url="http://3.108.26.182:8082"
 						)
 		},
 		security =  {
